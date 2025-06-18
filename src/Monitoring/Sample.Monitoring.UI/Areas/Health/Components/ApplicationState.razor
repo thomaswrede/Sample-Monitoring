@@ -1,0 +1,41 @@
+﻿@using Sample.Monitoring.UI.Helper
+@inherits BaseComponent
+@inject HealthStatusService HealthStatusService
+<article>
+  @if (this.IsLoading || !this.IsReady)
+  {
+    <FluentProgress></FluentProgress>
+  }
+  else 
+  {
+    <FluentAccordion>
+      @foreach (var firstLevel in this.States?.GroupBy(e => e.FirstLevel).OrderBy(e => e.Key))
+      {
+        <FluentAccordionItem Heading="@firstLevel.Key">
+          <FluentIcon Value="@(HealthCheckStyles.GetStatusIcon(firstLevel))" Color="@(HealthCheckStyles.GetStatusColor(firstLevel))" Slot="start" />
+          <FluentAccordion>
+            @foreach (var secondLevel in firstLevel.GroupBy(e => e.SecondLevel))
+            {
+              <FluentAccordionItem Heading="@secondLevel.Key" HeadingLevel="2">
+                <FluentIcon Value="@(HealthCheckStyles.GetStatusIcon(secondLevel))" Color="@(HealthCheckStyles.GetStatusColor(secondLevel))" Slot="start" />
+                <FluentStack Orientation="Orientation.Vertical">
+                  @foreach (var check in secondLevel.GroupBy(e => e.CheckName))
+                  {
+                    <div style="display: flex; gap: 10px;">
+                      <FluentIcon Value="@(HealthCheckStyles.GetStatusIcon(check))" Color="@(HealthCheckStyles.GetStatusColor(check))" Slot="start" />
+                      @check.Key
+                      <FluentNavLink Href="@($"/Health/Detail?check={System.Net.WebUtility.UrlEncode(@check.Key)}")">
+                        <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size20.ArrowCircleRight())" Slot="end" />
+                      </FluentNavLink>
+                    </div>
+                  }
+                </FluentStack>
+              </FluentAccordionItem>
+            }
+          </FluentAccordion>
+        </FluentAccordionItem>
+
+      }      
+    </FluentAccordion>
+ }
+</article>

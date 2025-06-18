@@ -1,0 +1,28 @@
+﻿@using Sample.Monitoring.UI.Helper
+@inherits BaseComponent
+@inject HealthStatusService HealthStatusService
+<article>
+  @if (this.IsLoading || !this.IsReady)
+  {
+    <FluentProgress></FluentProgress>
+  }
+  else
+  {
+    <h3>@this.CheckName</h3>
+    <FluentAccordion>
+    @foreach (var check in this.HealthCheck.Checks)
+    {
+        <FluentAccordionItem Heading="@($"Server: {check.ServerName}, letzte Ausführung (Dauer): {check.LastExecution.ToString("dd.MM.yyyy HH:mm:ss")} ({check.LastDuration.TotalMilliseconds.ToString("0ms")})")">
+        <FluentIcon Value="@(HealthCheckStyles.GetStatusIcon([this.HealthCheck], check.ServerName))" Color="@(HealthCheckStyles.GetStatusColor([this.HealthCheck],check.ServerName))" Slot="start" />
+        <h4>Historie</h4>
+        <FluentDataGrid TGridItem="HealthCheckHistoryEntry" Items="@check.HistoryEntries.OrderByDescending(e => e.StatusFrom).AsQueryable()">
+          <TemplateColumn>
+              <FluentIcon Value="@(HealthCheckStyles.GetStatusIcon(context))" Color="@(HealthCheckStyles.GetStatusColor(context))" Slot="start" />
+          </TemplateColumn>
+          <PropertyColumn Property="@(h => h.StatusFrom)" Title="Status seit" />
+        </FluentDataGrid>
+      </FluentAccordionItem>
+    }
+    </FluentAccordion>
+  }
+</article>

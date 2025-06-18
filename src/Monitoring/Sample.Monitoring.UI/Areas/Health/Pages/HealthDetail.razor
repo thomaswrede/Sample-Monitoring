@@ -1,0 +1,8 @@
+﻿@page "/Health/Detail"
+@using System.Diagnostics
+@inherits Sample.UI.Extensions.Components.BaseComponent
+@inject HealthStatusService HealthStatusService
+<h3>Details zum Status</h3>
+<div class="dashboard">
+  <Sample.Monitoring.UI.Areas.Health.Components.HealthCheckState />
+</div>

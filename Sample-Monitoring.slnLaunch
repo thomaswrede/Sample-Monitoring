@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "local sample",
+    "Projects": [
+      {
+        "Path": "src\\Monitoring\\Sample.Monitoring.API\\Sample.Monitoring.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Sample-Client-App\\Sample-Client-App.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
