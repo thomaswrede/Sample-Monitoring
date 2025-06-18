@@ -29,7 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.UI.Extensions", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{18C1ACD4-3D04-4541-880D-B0437233CD92}"
 	ProjectSection(SolutionItems) = preProject
-		src\Sample-Client-App\README.md = src\Sample-Client-App\README.md
 		run.bat = run.bat
 	EndProjectSection
 EndProject
